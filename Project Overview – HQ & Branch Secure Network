@@ -1,0 +1,90 @@
+# 🏢🌐 Project Overview – HQ & Branch Secure Network
+
+## 🎯 Objective
+This project simulates a secure **HQ ↔ Branch enterprise network** using Cisco ASA firewalls, core switches, and a full range of enterprise services.  
+The design integrates **redundancy, routing, security policies, and VPN connectivity**.
+
+---
+
+## 🏢 HQ Campus
+- **ASA-HQ Firewall**
+  - Outside: 203.0.113.1/30
+  - Inside-MS1: 10.1.1.2/30
+  - Inside-MS2: 10.1.1.6/30
+  - DMZ: 192.168.10.1/24
+  - NAT (dynamic PAT for VLANs, static for DMZ servers)
+  - ACLs controlling inbound access
+  - OSPF + default-information originate
+  - IPSec VPN HQ ↔ Branch
+  - SSH restricted to Management VLAN (192.168.60.0/24)
+
+- **Core Switches HQ (MS1-HQ, MS2-HQ)**
+  - VLANs 20 (Engineers), 30 (Office), 40 (Sales), 50 (IT), 60 (Management)
+  - HSRP redundancy (.1 as virtual gateway)
+  - EtherChannel between cores
+  - Trunking to access switches
+  - OSPF advertising all VLANs
+  - DHCP relay (to HQ DHCP server)
+
+- **DMZ Servers**
+  - DNS
+  - DHCP (HQ scope)
+  - Web Server
+  - Email Server
+  - FTP/NTP Server
+
+---
+
+## 🏬 Branch Campus
+- **ASA-Branch Firewall**
+  - Outside: 203.0.113.5/30
+  - Inside-MS1: 10.1.2.2/30
+  - Inside-MS2: 10.1.2.6/30
+  - NAT (PAT for VLANs, static if needed)
+  - ACLs
+  - OSPF
+  - IPSec VPN HQ ↔ Branch
+  - SSH restricted to Management VLAN (172.16.60.0/24)
+
+- **Core Switches Branch (MS1-Branch, MS2-Branch)**
+  - VLANs 70 (Marketing), 80 (Office), 90 (Sales), 60 (Management)
+  - HSRP redundancy (.1 as virtual gateway)
+  - EtherChannel between cores
+  - Trunking to access switches
+  - OSPF advertising all VLANs
+  - DHCP relay (to Branch DHCP server)
+
+- **Branch Servers**
+  - DHCP (Branch scope)
+
+---
+
+## 🔐 Security & Policies
+- **NAT**: Inside → Outside PAT, DMZ servers with static NAT
+- **ACLs**: Outside-in access restricted to allowed services (HTTP, SMTP, DNS, FTP)
+- **VPN**: Site-to-Site IPSec tunnel for secure HQ ↔ Branch traffic
+- **Management**: SSH access allowed only from Management VLANs (HQ 192.168.60.0/24, Branch 172.16.60.0/24)
+- **Inspection**: ICMP, FTP, DNS
+
+---
+
+## 📖 Protocols Implemented
+- VLANs, Trunking, EtherChannel
+- HSRP redundancy
+- OSPF routing
+- NAT, ACLs
+- DHCP relay
+- IPSec VPN
+- SSH secured management
+- DMZ with public services (Web, DNS, Email, FTP/NTP)
+
+---
+
+## ✅ Validation Tests
+- Internet access from HQ VLANs and Branch VLANs
+- VPN HQ ↔ Branch reachability
+- Public access to DMZ servers
+- NAT translation checks (`show xlate`)
+- VPN session validation (`show crypto isakmp sa`, `show crypto ipsec sa`)
+- HSRP failover tests
+- DHCP assignment per VLAN
