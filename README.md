@@ -15,7 +15,6 @@ This repository contains a **Cisco Packet Tracer** lab simulating a secure HQ–
 
 ## 📂 Repository structure
 - `topology/` – Network diagram (.png) and Packet Tracer file (.pkt)
-- `configs/` – Running-configs (ASA, Core switches)
 - `documentation/` – Detailed technical docs (IP plan, NAT, ACL, OSPF, VPN, tests)
 
 ---
