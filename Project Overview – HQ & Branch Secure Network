@@ -1,12 +1,12 @@
-# 🏢🌐 Project Overview – HQ & Branch Secure Network
+#  Project Overview – HQ & Branch Secure Network
 
-## 🎯 Objective
+## Objective
 This project simulates a secure **HQ ↔ Branch enterprise network** using Cisco ASA firewalls, core switches, and a full range of enterprise services.  
 The design integrates **redundancy, routing, security policies, and VPN connectivity**.
 
 ---
 
-## 🏢 HQ Campus
+## HQ Campus
 - **ASA-HQ Firewall**
   - Outside: 203.0.113.1/30
   - Inside-MS1: 10.1.1.2/30
@@ -35,7 +35,7 @@ The design integrates **redundancy, routing, security policies, and VPN connecti
 
 ---
 
-## 🏬 Branch Campus
+## Branch Campus
 - **ASA-Branch Firewall**
   - Outside: 203.0.113.5/30
   - Inside-MS1: 10.1.2.2/30
@@ -59,7 +59,7 @@ The design integrates **redundancy, routing, security policies, and VPN connecti
 
 ---
 
-## 🔐 Security & Policies
+## Security & Policies
 - **NAT**: Inside → Outside PAT, DMZ servers with static NAT
 - **ACLs**: Outside-in access restricted to allowed services (HTTP, SMTP, DNS, FTP)
 - **VPN**: Site-to-Site IPSec tunnel for secure HQ ↔ Branch traffic
@@ -68,7 +68,7 @@ The design integrates **redundancy, routing, security policies, and VPN connecti
 
 ---
 
-## 📖 Protocols Implemented
+## Protocols Implemented
 - VLANs, Trunking, EtherChannel
 - HSRP redundancy
 - OSPF routing
@@ -80,7 +80,7 @@ The design integrates **redundancy, routing, security policies, and VPN connecti
 
 ---
 
-## ✅ Validation Tests
+## Validation Tests
 - Internet access from HQ VLANs and Branch VLANs
 - VPN HQ ↔ Branch reachability
 - Public access to DMZ servers
