@@ -30,11 +30,12 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 ### 🔹 HQ Servers (DMZ)
 | Server      | IP Address     | Services            |
 |-------------|----------------|---------------------|
-| DNS Server  | 192.168.10.2   | DNS                 |
+| DNS Server  | 192.168.10.3   | DNS                 |
 | DHCP Server | 192.168.10.4   | DHCP for HQ VLANs   |
-| Web Server  | 192.168.10.10  | HTTP/HTTPS          |
-| Email       | 192.168.10.20  | SMTP/IMAP           |
-| FTP/NTP     | 192.168.10.30  | FTP, NTP            |
+| DHCP Server | 192.168.10.5   | DHCP for BranchVLAN |
+| Web Server  | 192.168.10.6   | HTTP/HTTPS          |
+| Email       | 192.168.10.7   | SMTP/IMAP           |
+| FTP/NTP     | 192.168.10.8   | FTP, NTP            |
 
 ---
 
@@ -56,13 +57,6 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 | 80   | Office     | 172.16.80.0/24      | 172.16.80.1     | .2          | .3          | DHCP Relay to DHCP-BR |
 | 90   | Sales      | 172.16.90.0/24      | 172.16.90.1     | .2          | .3          | DHCP Relay to DHCP-BR |
 | 60   | Mgmt       | 172.16.60.0/24      | 172.16.60.1     | .2          | .3          | Static IPs only, SSH access allowed |
-
----
-
-### 🔹 Branch Servers
-| Server      | IP Address     | Services            |
-|-------------|----------------|---------------------|
-| DHCP Server | 172.16.80.4    | DHCP for Branch VLANs |
 
 ---
 
