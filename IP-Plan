@@ -1,13 +1,13 @@
-# 🌐 IP Addressing & VLAN Plan
+# IP Addressing & VLAN Plan
 
 This file documents the full IP addressing scheme, VLAN allocation, and authentication setup for the **HQ–Branch Secure Network Lab**.
 
 ---
 
-## 🏢 HQ Campus
+## HQ Campus
 
-### 🔹 ASA-HQ Interfaces
-| Interface        | Nameif       | Security Level | IP Address        | Description            |
+### ASA-HQ Interfaces
+| Interface        | Nameif       | Security Level | IP Address        | Description           |
 |------------------|-------------|----------------|-------------------|------------------------|
 | Gi1/1            | outside     | 0              | 203.0.113.1/30    | Uplink to ISP-HQ       |
 | Gi1/2            | inside-MS1  | 100            | 10.1.1.2/30       | Link to MS1-HQ Core    |
@@ -16,7 +16,7 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-### 🔹 HQ VLANs
+### HQ VLANs
 | VLAN | Name        | Subnet              | HSRP Virtual IP | MS1 IP      | MS2 IP      | Notes              |
 |------|------------|---------------------|-----------------|-------------|-------------|--------------------|
 | 20   | Engineers  | 192.168.20.0/24     | 192.168.20.1    | .2          | .3          | DHCP Relay to DMZ  |
@@ -27,7 +27,7 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-### 🔹 HQ Servers (DMZ)
+### HQ Servers (DMZ)
 | Server      | IP Address     | Services            |
 |-------------|----------------|---------------------|
 | DNS Server  | 192.168.10.3   | DNS                 |
@@ -39,9 +39,9 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-## 🏬 Branch Campus
+## Branch Campus
 
-### 🔹 ASA-Branch Interfaces
+### ASA-Branch Interfaces
 | Interface        | Nameif       | Security Level | IP Address        | Description            |
 |------------------|-------------|----------------|-------------------|------------------------|
 | Gi1/1            | outside     | 0              | 203.0.113.5/30    | Uplink to ISP-Branch   |
@@ -50,7 +50,7 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-### 🔹 Branch VLANs
+### Branch VLANs
 | VLAN | Name        | Subnet              | HSRP Virtual IP | MS1 IP      | MS2 IP      | Notes               |
 |------|------------|---------------------|-----------------|-------------|-------------|---------------------|
 | 70   | Marketing  | 172.16.70.0/24      | 172.16.70.1     | .2          | .3          | DHCP Relay to DHCP-BR |
@@ -60,7 +60,7 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-## 🌍 WAN / ISP / Internet
+## WAN / ISP / Internet
 
 | Device     | Interface        | IP Address       | Notes                          |
 |------------|-----------------|------------------|--------------------------------|
@@ -71,7 +71,7 @@ This file documents the full IP addressing scheme, VLAN allocation, and authenti
 
 ---
 
-## 🔑 Authentication
+## Authentication
 
 - **All passwords**: `cisco`  
 - Applies to:
