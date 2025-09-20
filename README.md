@@ -21,7 +21,7 @@ This repository contains a **Cisco Packet Tracer** lab simulating a secure HQ–
 ---
 
 ## Topology
-![HQ-Branch Topology](topology/hq-branch-topology.png)
+![(https://github.com/Silviu3369/HQ-Branch-Secure-Network/blob/main/Topology.PNG))
 
 ---
 
