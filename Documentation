@@ -1,0 +1,91 @@
+# 🌐 IP Addressing & VLAN Plan
+
+This file documents the full IP addressing scheme, VLAN allocation, and authentication setup for the **HQ–Branch Secure Network Lab**.
+
+---
+
+## 🏢 HQ Campus
+
+### 🔹 ASA-HQ Interfaces
+| Interface        | Nameif       | Security Level | IP Address        | Description            |
+|------------------|-------------|----------------|-------------------|------------------------|
+| Gi1/1            | outside     | 0              | 203.0.113.1/30    | Uplink to ISP-HQ       |
+| Gi1/2            | inside-MS1  | 100            | 10.1.1.2/30       | Link to MS1-HQ Core    |
+| Gi1/3            | inside-MS2  | 100            | 10.1.1.6/30       | Link to MS2-HQ Core    |
+| Gi1/4            | DMZ         | 70             | 192.168.10.1/24   | DMZ Segment            |
+
+---
+
+### 🔹 HQ VLANs
+| VLAN | Name        | Subnet              | HSRP Virtual IP | MS1 IP      | MS2 IP      | Notes              |
+|------|------------|---------------------|-----------------|-------------|-------------|--------------------|
+| 20   | Engineers  | 192.168.20.0/24     | 192.168.20.1    | .2          | .3          | DHCP Relay to DMZ  |
+| 30   | Office     | 192.168.30.0/24     | 192.168.30.1    | .2          | .3          | DHCP Relay to DMZ  |
+| 40   | Sales      | 192.168.40.0/24     | 192.168.40.1    | .2          | .3          | DHCP Relay to DMZ  |
+| 50   | IT         | 192.168.50.0/24     | 192.168.50.1    | .2          | .3          | DHCP Relay to DMZ  |
+| 60   | Mgmt       | 192.168.60.0/24     | 192.168.60.1    | .2          | .3          | Static IPs only, SSH access allowed |
+
+---
+
+### 🔹 HQ Servers (DMZ)
+| Server      | IP Address     | Services            |
+|-------------|----------------|---------------------|
+| DNS Server  | 192.168.10.2   | DNS                 |
+| DHCP Server | 192.168.10.4   | DHCP for HQ VLANs   |
+| Web Server  | 192.168.10.10  | HTTP/HTTPS          |
+| Email       | 192.168.10.20  | SMTP/IMAP           |
+| FTP/NTP     | 192.168.10.30  | FTP, NTP            |
+
+---
+
+## 🏬 Branch Campus
+
+### 🔹 ASA-Branch Interfaces
+| Interface        | Nameif       | Security Level | IP Address        | Description            |
+|------------------|-------------|----------------|-------------------|------------------------|
+| Gi1/1            | outside     | 0              | 203.0.113.5/30    | Uplink to ISP-Branch   |
+| Gi1/2            | inside-MS1  | 100            | 10.1.2.2/30       | Link to MS1-Branch     |
+| Gi1/3            | inside-MS2  | 100            | 10.1.2.6/30       | Link to MS2-Branch     |
+
+---
+
+### 🔹 Branch VLANs
+| VLAN | Name        | Subnet              | HSRP Virtual IP | MS1 IP      | MS2 IP      | Notes               |
+|------|------------|---------------------|-----------------|-------------|-------------|---------------------|
+| 70   | Marketing  | 172.16.70.0/24      | 172.16.70.1     | .2          | .3          | DHCP Relay to DHCP-BR |
+| 80   | Office     | 172.16.80.0/24      | 172.16.80.1     | .2          | .3          | DHCP Relay to DHCP-BR |
+| 90   | Sales      | 172.16.90.0/24      | 172.16.90.1     | .2          | .3          | DHCP Relay to DHCP-BR |
+| 60   | Mgmt       | 172.16.60.0/24      | 172.16.60.1     | .2          | .3          | Static IPs only, SSH access allowed |
+
+---
+
+### 🔹 Branch Servers
+| Server      | IP Address     | Services            |
+|-------------|----------------|---------------------|
+| DHCP Server | 172.16.80.4    | DHCP for Branch VLANs |
+
+---
+
+## 🌍 WAN / ISP / Internet
+
+| Device     | Interface        | IP Address       | Notes                          |
+|------------|-----------------|------------------|--------------------------------|
+| Internet   | S0/1/0 → ISP-HQ | 10.10.10.2/30    | Toward ASA-HQ ISP              |
+| Internet   | S0/1/1 → ISP-BR | 20.20.20.2/30    | Toward ASA-Branch ISP          |
+| ISP-HQ     | G0/0/0          | 203.0.113.2/30   | Facing ASA-HQ outside          |
+| ISP-Branch | G0/0/0          | 203.0.113.6/30   | Facing ASA-Branch outside      |
+
+---
+
+## 🔑 Authentication
+
+- **All passwords**: `cisco`  
+- Applies to:
+  - Console (`line con 0`)  
+  - VTY (`line vty 0 4`)  
+  - Enable secret  
+  - SSH login  
+
+Only **VLAN60 (Management)** is allowed to initiate SSH sessions.
+
+
